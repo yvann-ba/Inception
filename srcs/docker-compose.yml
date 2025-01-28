@@ -1,3 +1,97 @@
+version: "3.8"  # Or "3.9"
+
+services:
+  ################################
+  #           MARIADB            #
+  ################################
+  mariadb:
+    container_name: mariadb
+    # 1) Where to find the Dockerfile:
+    build:
+      context: ./requirements/mariadb
+      dockerfile: Dockerfile
+    
+    # 2) Environment variables file
+    env_file:
+      - .env
+    
+    # 3) Persist data in a bind mount volume
+    volumes:
+      - mariadb:/var/lib/mysql
+    
+    # 4) (Optionally) Expose the DB internally
+    #    For debugging from host, you could do "3306:3306"
+    #    but the subject doesn't strictly require it.
+    expose:
+      - "3306"
+    
+    # 5) A shared network so other containers can talk to it
+    networks:
+      - inception
+    
+    # 6) Automatically restart if container crashes
+    restart: unless-stopped
+
+  ################################
+  #           WORDPRESS          #
+  ################################
+  wordpress:
+    container_name: wordpress
+    build:
+      context: ./requirements/wordpress
+      dockerfile: Dockerfile
+    
+    env_file:
+      - .env
+    
+    depends_on:
+      - mariadb
+    
+    volumes:
+      - wordpress:/var/www/html
+    
+    # We'll EXPOSE port 9000 internally so NGINX can pass PHP requests here
+    expose:
+      - "9000"
+    
+    networks:
+      - inception
+    restart: unless-stopped
+
+  ################################
+  #             NGINX            #
+  ################################
+  nginx:
+    container_name: nginx
+    build:
+      context: ./requirements/nginx
+      dockerfile: Dockerfile
+    
+    env_file:
+      - .env
+    
+    # Must wait until WordPress is built, 
+    # so we have the correct references to the 'wordpress' service
+    depends_on:
+      - wordpress
+    
+    # For static site content, you can optionally mount the WP volume here too
+    # If you want NGINX to directly serve the same files:
+    volumes:
+      - wordpress:/var/www/html
+    
+    # The subject demands only port 443 is available externally
+    ports:
+      - "443:443"
+    
+    networks:
+      - inception
+    restart: unless-stopped
+
+#############
+## Volumes ##
+#############
+
 volumes:
   mariadb:
     driver: local
@@ -12,3 +106,11 @@ volumes:
       type: none
       o: bind
       device: /nfs/homes/ybarbot/data/wordpress
+
+##############
+## Networks ##
+##############
+
+networks:
+  inception:
+    driver: bridge
