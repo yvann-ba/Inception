@@ -1,0 +1,14 @@
+volumes:
+  mariadb:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /nfs/homes/ybarbot/data/mariadb
+
+  wordpress:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /nfs/homes/ybarbot/data/wordpress
