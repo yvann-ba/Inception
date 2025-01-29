@@ -9,8 +9,8 @@ COMPOSE_FILE	= srcs/docker-compose.yml
 DOMAIN_NAME		= ybarbot.42.fr
 
 # Where we want to store data volumes
-HOST_MARIADB	= /nfs/homes/ybarbot/data/mariadb
-HOST_WORDPRESS	= /nfs/homes/ybarbot/data/wordpress
+HOST_MARIADB	= /home/ybarbot/data/mariadb
+HOST_WORDPRESS	= /home/ybarbot/data/wordpress
 
 ########################################
 #             MAKE TARGETS            #

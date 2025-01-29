@@ -98,14 +98,14 @@ volumes:
     driver_opts:
       type: none
       o: bind
-      device: /nfs/homes/ybarbot/data/mariadb
+      device: /home/ybarbot/data/mariadb
 
   wordpress:
     driver: local
     driver_opts:
       type: none
       o: bind
-      device: /nfs/homes/ybarbot/data/wordpress
+      device: /home/ybarbot/data/wordpress
 
 ##############
 ## Networks ##
