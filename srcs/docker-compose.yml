@@ -1,4 +1,4 @@
-#version: "3.8"  # Or "3.9"
+version: "3.9"  # Or "3.9"
 
 services:
   ################################
@@ -52,7 +52,7 @@ services:
       
     environment:
       - WP_DEBUG=1
-    user: "www-data:www-data"
+    #user: "www-data:www-data"
     
     # We'll EXPOSE port 9000 internally so NGINX can pass PHP requests here
     expose:
