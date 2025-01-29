@@ -49,6 +49,10 @@ services:
     
     volumes:
       - wordpress:/var/www/html
+      
+    environment:
+      - WP_DEBUG=1
+    user: "www-data:www-data"
     
     # We'll EXPOSE port 9000 internally so NGINX can pass PHP requests here
     expose:
