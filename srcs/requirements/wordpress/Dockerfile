@@ -5,11 +5,11 @@ RUN apt-get update && \
     wget \
     curl \
     mariadb-client \
-    php7.3 \
-    php7.3-fpm \
-    php7.3-mysql \
-    php7.3-xml \
-    php7.3-zip \
+    php \
+    php-fpm \
+    php-mysql \
+    php-xml \
+    php-zip \
     && rm -rf /var/lib/apt/lists/*
 
 
