@@ -13,9 +13,10 @@ RUN apt-get update && \
     && rm -rf /var/lib/apt/lists/*
 
 
-RUN wget https://wordpress.org/latest.tar.gz && \
-tar -xzf latest.tar.gz --strip-components=1 -C /var/www/html && \
-rm latest.tar.gz
+RUN mkdir -p /var/www/html && \
+    wget https://wordpress.org/latest.tar.gz && \
+    tar -xzf latest.tar.gz --strip-components=1 -C /var/www/html && \
+    rm latest.tar.gz
 
 COPY conf/www.conf /etc/php/7.3/fpm/pool.d/www.conf
 RUN mkdir -p /run/php /var/www/html
