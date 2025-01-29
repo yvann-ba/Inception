@@ -5,8 +5,8 @@ RUN apt-get update && \
     wget \
     curl \
     mariadb-client \
-    php \
-    php-fpm \
+    php7.4 \
+    php7.4-fpm \
     php-mysql \
     php-xml \
     php-zip \
@@ -18,7 +18,7 @@ RUN mkdir -p /var/www/html && \
     tar -xzf latest.tar.gz --strip-components=1 -C /var/www/html && \
     rm latest.tar.gz
 
-COPY conf/www.conf /etc/php/7.3/fpm/pool.d/www.conf
+COPY conf/www.conf /etc/php/7.4/fpm/pool.d/www.conf
 RUN mkdir -p /run/php /var/www/html
 
 COPY tools/setup-wordpress.sh /usr/local/bin/setup-wordpress.sh

@@ -54,4 +54,4 @@ chown -R www-data:www-data /var/www/html
 
 # 4) Launch PHP-FPM in the foreground
 echo "Starting php-fpm..."
-exec php-fpm7.3 -F
+exec php-fpm7.4 -F
