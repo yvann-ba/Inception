@@ -1,11 +1,23 @@
 #!/bin/bash
 
-# 1) Start MariaDB service (temporary background daemon)
-service mysql start
+# 0) Make sure /run/mysqld exists and is owned by mysql
+mkdir -p /run/mysqld
+chown -R mysql:mysql /run/mysqld
 
-# 2) Secure the installation (optional, but typical)
-#    e.g. remove anonymous users, disallow root remote login, etc.
-#    Here we’ll do a simple approach by setting root password & removing test db.
+# 1) Start MariaDB in the background manually
+echo "[i] Starting temporary MariaDB..."
+mysqld_safe --skip-networking &
+# Alternatively: mysqld --skip-networking &
+# (The --skip-networking is optional if you prefer not to accept external connections during init)
+
+# 2) Wait for it to be ready
+until mysqladmin ping --silent; do
+    echo "[i] Waiting for mysqld to be up..."
+    sleep 1
+done
+echo "[i] MariaDB is up!"
+
+# 3) Now run your SQL statements
 mysql -u root <<-EOSQL
     UPDATE mysql.user SET plugin = 'mysql_native_password' WHERE User = 'root';
     DELETE FROM mysql.user WHERE User='';
@@ -18,7 +30,6 @@ mysql -u root <<-EOSQL
     FLUSH PRIVILEGES;
 EOSQL
 
-# 3) Create a new DB + user if not already existing
 mysql -u root -p"${SQL_ROOT_PASSWORD}" <<-EOSQL
     CREATE DATABASE IF NOT EXISTS \`${SQL_DATABASE}\`;
     CREATE USER IF NOT EXISTS \`${SQL_USER}\`@'%' IDENTIFIED BY '${SQL_PASSWORD}';
@@ -26,8 +37,8 @@ mysql -u root -p"${SQL_ROOT_PASSWORD}" <<-EOSQL
     FLUSH PRIVILEGES;
 EOSQL
 
-# 4) Shut down the temporary daemon
+# 4) Shut down
 mysqladmin -u root -p"${SQL_ROOT_PASSWORD}" shutdown
 
-# 5) Finally, run MariaDB in foreground so container stays up
+# 5) Finally, run MariaDB in the foreground so container stays alive
 exec mysqld
