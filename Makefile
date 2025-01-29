@@ -22,6 +22,7 @@ all: up
 up:
 	@mkdir -p $(HOST_MARIADB)
 	@mkdir -p $(HOST_WORDPRESS)
+	@$(call add_host)
 	@echo "===> Starting containers (build + up)..."
 	@docker compose -f $(COMPOSE_FILE) up -d --build
 	@echo "===> Docker Compose UP complete."
