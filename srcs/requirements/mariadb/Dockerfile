@@ -1,8 +1,6 @@
 FROM debian:bullseye
 
 RUN apt-get update && apt-get install -y mariadb-server
-
-# Ensure /run/mysqld directory exists and is correct
 RUN mkdir /run/mysqld && chown mysql:mysql /run/mysqld
 
 COPY conf/50-server.cnf /etc/mysql/mariadb.conf.d/50-server.cnf

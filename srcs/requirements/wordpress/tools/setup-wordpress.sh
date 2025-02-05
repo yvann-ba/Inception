@@ -1,6 +1,4 @@
 #!/bin/bash
-
-# 1) Wait for MariaDB to be ready
 echo "Waiting for MariaDB to be ready..."
 while ! mysqladmin ping -h mariadb --silent; do
     sleep 1
@@ -8,11 +6,7 @@ done
 echo "MariaDB is ready!"
 
 cd /var/www/html
-
-# 2) If wp-config.php doesn't exist, we configure WordPress
 if [ ! -f wp-config.php ]; then
-
-    # Download WP-CLI if not present
     if [ ! -f /usr/local/bin/wp ]; then
         echo "Downloading WP-CLI..."
         curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
@@ -48,10 +42,6 @@ if [ ! -f wp-config.php ]; then
         --path=/var/www/html \
         --allow-root
 fi
-
-# 3) Always ensure correct permissions (if needed)
 chown -R www-data:www-data /var/www/html
-
-# 4) Launch PHP-FPM in the foreground
 echo "Starting php-fpm..."
 exec php-fpm7.4 -F
