@@ -20,8 +20,8 @@ clean:
 	@echo "===> Stopping and removing containers, images, volumes..."
 	@docker compose -f $(COMPOSE_FILE) down -v --rmi all
 	@echo "===> Removing local data in $(HOST_MARIADB) and $(HOST_WORDPRESS)"
-	rm -rf $(HOST_MARIADB)/* 2>/dev/null || true
-	rm -rf $(HOST_WORDPRESS)/* 2>/dev/null || true
+	@rm -rf $(HOST_MARIADB)/* 2>/dev/null || true
+	@rm -rf $(HOST_WORDPRESS)/* 2>/dev/null || true
 	@echo "===> Clean complete."
 fclean: clean
 
