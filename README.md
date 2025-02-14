@@ -2,13 +2,12 @@
 
 ### **A complete containerized WordPress infrastructure using Docker, featuring NGINX, MariaDB, and WordPress running in isolated containers with SSL encryption**
 
----
 
-## Overview
-![Infrastructure Diagram](diagram-placeholder.png)
-[You can add your infrastructure diagram here showing NGINX → WordPress → MariaDB flow]
+## Video Demo
+[Coming Soon]
 
----
+
+
 
 ## Features
 - **Containerization**: Fully Dockerized infrastructure with custom images
@@ -17,11 +16,9 @@
 - **Isolation**: Each service runs in its own container
 - **High Availability**: Automatic container restart on crash
 
----
 
-## Video Demo
-[Coming Soon]
-
+## Infrastructure Overview
+<img width="506" alt="Capture_dcran_2022-07-19__16 24 51" src="https://github.com/user-attachments/assets/18c82947-d104-4ed1-9acf-6c53ce45c96a" />
 ---
 
 ## Quick Setup
