@@ -88,6 +88,7 @@
 - Custom user configuration
 
 </details>
+
 ---
 
-### 🖥️ Works on Linux, Mac and WSL(for Windows)
+#### 🖥️ Works on Linux, Mac and WSL(for Windows)
