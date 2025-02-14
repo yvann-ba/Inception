@@ -19,7 +19,6 @@
 
 ## Infrastructure Overview
 <img width="506" alt="Capture_dcran_2022-07-19__16 24 51" src="https://github.com/user-attachments/assets/18c82947-d104-4ed1-9acf-6c53ce45c96a" />
----
 
 ## Quick Setup
 
