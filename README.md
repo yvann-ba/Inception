@@ -89,7 +89,3 @@
 - Custom user configuration
 
 </details>
-
----
-
-## Built with Docker 🐋
